@@ -1,5 +1,5 @@
-import os
 import glob
+import os
 
 # Define the name of the .ini file
 file_name = [file for file in glob.glob("*.ini") if not file.lower().startswith("disabled") and not file.lower().startswith("backup")][0]
@@ -63,11 +63,12 @@ with open(f'{charaname}.ini', "w") as file:
             if skip>0:
                 skip-=1
             if "; Constants" in line:
+                print("All the following instructions will ask you to write something.\nIf you want to skip the instructions and have the default value, just press the enter key.")
                 file.write("[Constants]\n")
                 if hasActive == False:
                     file.write("global $active = 0\n")
                 for part in charaparts:
-                    if(input("Creating variable for "+part+", enter skip to skip\n").strip().lower() != "skip"):
+                    if(input("Creating variable for "+part+", please write 'skip' to skip\n").strip().lower() != "skip"):
                         if(input("Should part be inactive by default? Y/N\n").strip().lower() == 'y'):
                             file.write("global persist $"+ part.replace(".", "") +" = 0\n")
                         else:
