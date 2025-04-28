@@ -95,8 +95,14 @@ with open(f'{charaname}.ini', "w") as file, open('template.txt', 'w') as setting
                     else:
                         partstoremove.append(part)
             else:
-                for part in charaparts:
-                    file.write("global persist $"+ part.replace(".", "") +" = 0\n")
+                if(input(f"Toggle template default values? Y/N\n").strip().lower() == 'y'):
+                    for part in charaparts:
+                        if(input(f"Should {part} be inactive by default? Y/N\n").strip().lower() == 'y'):
+                            file.write("global persist $"+ part.replace(".", "") +" = 0\n")
+                        else:
+                            file.write("global persist $"+ part.replace(".", "") +" = 1\n")
+                else:
+                    print("Please verify your ini's default values before refreshing to have fewer issues down the line!")
 
             for part in partstoremove:
                 charaparts.remove(part)
